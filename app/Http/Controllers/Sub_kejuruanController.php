@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\tb_m_sub_kejuruan;
 use App\tb_m_kejuruan;
+use Session;
 
 class Sub_kejuruanController extends Controller
 {
@@ -43,12 +44,17 @@ class Sub_kejuruanController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,['kd_sub_kejuruan'=>'required|unique:tb_m_sub_kejuruans']);
         $kejuruan = tb_m_kejuruan::all();
         $sub_kejuruan = new tb_m_sub_kejuruan;
         $sub_kejuruan->kd_sub_kejuruan = $request->kd_sub_kejuruan;
         $sub_kejuruan->nama_sub_Kejuruan = $request->nama_sub_kejuruan;
         $sub_kejuruan->kd_kejuruan = $request->kd_kejuruan;
         $sub_kejuruan->keterangan = $request->keterangan;
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $sub_kejuruan"
+            ]);
         $sub_kejuruan->save();
         return redirect()->route('sub_kejuruan.index');
     }
@@ -94,6 +100,10 @@ class Sub_kejuruanController extends Controller
         $sub_kejuruan->nama_sub_Kejuruan = $request->nama_sub_kejuruan;
         $sub_kejuruan->kd_kejuruan = $request->kd_kejuruan;
         $sub_kejuruan->keterangan = $request->keterangan;
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $sub_kejuruan"
+            ]);
         $sub_kejuruan->save();
         return redirect()->route('sub_kejuruan.index');
     }
@@ -104,12 +114,17 @@ class Sub_kejuruanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( Request $request)
     {
         //
+        $ids = $request->ids;
         $kejuruan = tb_m_kejuruan::all();
-        $sub_kejuruan = tb_m_sub_kejuruan::findOrFail($id);
+        tb_m_sub_kejuruan::destroy($ids);
         $sub_kejuruan->delete();
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Data Sub Kejuruan berhasil dihapus"
+            ]);
         return redirect()->route('sub_kejuruan.index');
     }
     public function search(Request $request)

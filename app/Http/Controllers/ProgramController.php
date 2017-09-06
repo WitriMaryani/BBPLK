@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\tb_m_program;
 use App\tb_m_sub_kejuruan;
 use App\tb_m_kejuruan;
+use Session;
 
 class ProgramController extends Controller
 {
@@ -28,7 +29,7 @@ class ProgramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
         $program = tb_m_program::where('id');
@@ -46,6 +47,7 @@ class ProgramController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,['kd_program'=>'required|unique:tb_m_programs']);
         $sub_kejuruan = tb_m_sub_kejuruan::all();
         $kejuruan = tb_m_kejuruan::all();
         $program = new tb_m_program;
@@ -55,6 +57,10 @@ class ProgramController extends Controller
         $program->kd_sub_kejuruan = $request->kd_sub_kejuruan;
         $program->jumlah_paket = $request->jumlah_paket;
         $program->lama_pelatihan = $request->lama_pelatihan;
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $program"
+            ]);
         $program->save();
         return redirect()->route('program.index');
     }
@@ -104,6 +110,10 @@ class ProgramController extends Controller
         $program->kd_sub_kejuruan = $request->kd_sub_kejuruan;
         $program->jumlah_paket = $request->jumlah_paket;
         $program->lama_pelatihan = $request->lama_pelatihan;
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil menyimpan $program"
+            ]);
         $program->save();
         return redirect()->route('program.index');
     }
@@ -114,13 +124,18 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+        $ids = $request->ids;
         $sub_kejuruan = tb_m_sub_kejuruan::all();
         $kejuruan = tb_m_kejuruan::all();
-        $program = tb_m_program::findOrFail($id);
+        tb_m_program::destroy($ids);
         $program->delete();
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Data program berhasil dihapus"
+            ]);
         return redirect()->route('program.index');
     }
     public function search(Request $request)

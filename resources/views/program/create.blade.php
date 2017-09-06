@@ -13,6 +13,7 @@
 				<div class="form-group">
 					<label class="control-lable">Kode program</label>
 					<input type="text" name="kd_program" class="form-control" required="">
+					{!! $errors->first('kd_program', '<p class="help-block">Data Sudah Ada</p>') !!}
 				</div>
 				<div class="form-group">
 					<label class="control-lable">Nama Program</label>
@@ -20,11 +21,19 @@
 				</div>
 				<div class="form-group">
 					<label class="control-lable">Nama Sub kejuruan</label>
-						<input type="text" name="kd_sub_kejuruan" class="form-control" required="">
+						<select class="form-control" name="kd_sub_kejuruan">
+							@foreach($sub_kejuruan as $data)
+								<option value="{{$data->kd_sub_kejuruan}}">{{$data->nama_sub_kejuruan}}</option>
+							@endforeach
+						</select>
 				</div>
 				<div class="form-group">
 					<label class="control-lable">Nama kejuruan</label>
-					<input type="text" name="kd_kejuruan" class="form-control" required="">
+					<select class="form-control" name="kd_kejuruan">
+							@foreach($kejuruan as $data)
+								<option value="{{$data->kd_kejuruan}}">{{$data->nama_kejuruan}}</option>
+							@endforeach
+						</select>
 				</div>
 				<div class="form-group">
 					<label class="control-lable">Jumlah Paket</label>

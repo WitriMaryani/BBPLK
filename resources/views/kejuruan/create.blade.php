@@ -13,6 +13,7 @@
 				<div class="form-group">
 					<label class="control-lable">Kode kejuruan</label>
 					<input type="text" name="kd_kejuruan" class="form-control" required="">
+					{!! $errors->first('kd_kejuruan', '<p class="help-block">Data Sudah Ada</p>') !!}
 				</div>
 				<div class="form-group">
 					<label class="control-lable">Nama Kejuruan</label>

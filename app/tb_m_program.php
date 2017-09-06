@@ -18,6 +18,6 @@ class tb_m_program extends Model
     }
     public function sub_kejuruan()
     {
-    	return $this->belongsTo('App\tb_m_ub_kejuruan','d_sub_kejuruan');
+    	return $this->belongsTo('App\tb_m_sub_kejuruan','kd_sub_kejuruan');
     }
 }

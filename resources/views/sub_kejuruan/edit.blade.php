@@ -21,12 +21,15 @@
 				</div>
 				<div class="form-group">
 					<label class="control-lable">Nama kejuruan</label>
-						<input type="text" name="kd_kejuruan" value="{{$sub_kejuruan->kd_kejuruan}}" class="form-control" required="">
-				</
-				<br>
+						<select class="form-control" name="kd_kejuruan">
+							@foreach($kejuruan as $data)
+								<option value="{{$data->kd_kejuruan}}" selected="">{{$data->nama_kejuruan}}</option>
+							@endforeach
+						</select>
+				</div>
 				<div class="form-group">
 					<label class="control-lable">Keterangan</label>
-					<input type="text" name="keterangan" class="form-control" required="">
+					<textarea class="form-control" name="keterangan">{{$data->keterangan}}</textarea>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Simpan</button>

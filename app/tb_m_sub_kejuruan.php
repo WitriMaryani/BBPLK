@@ -14,6 +14,6 @@ class tb_m_sub_kejuruan extends Model
 
     public function program()
     {
-    	return $this->hasMany('App\tb_m_program','kd__sub_kejuruan');
+    	return $this->hasMany('App\tb_m_program','kd_sub_kejuruan');
     }
 }
