@@ -59,7 +59,7 @@ class ProgramController extends Controller
         $program->lama_pelatihan = $request->lama_pelatihan;
         Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Berhasil menyimpan $program"
+            "message"=>"Berhasil menyimpan data yang telah ditambah"
             ]);
         $program->save();
         return redirect()->route('program.index');
@@ -112,7 +112,7 @@ class ProgramController extends Controller
         $program->lama_pelatihan = $request->lama_pelatihan;
         Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Berhasil menyimpan $program"
+            "message"=>"Berhasil menyimpan data yang telah diedit"
             ]);
         $program->save();
         return redirect()->route('program.index');
@@ -141,7 +141,7 @@ class ProgramController extends Controller
     public function search(Request $request)
     {
         $carim = $request->get('search');
-        $program = tb_m_program::where('kd_program','LIKE','%'.$carim.'%')->paginate(10);
+        $program = tb_m_program::where('nama_program','LIKE','%'.$carim.'%')->paginate(10);
         return view('program.index',compact('program'));
     }
 }

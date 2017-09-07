@@ -48,8 +48,8 @@ class KejuruanController extends Controller
         $kejuruan->nama_Kejuruan = $request->nama_kejuruan;
         $kejuruan->keterangan = $request->keterangan;
         Session::flash("flash_notification", [
-            "level"=>"success",
-            "message"=>"Berhasil menyimpan $kejuruan"
+            "level"=>"info",
+            "message"=>"Berhasil menyimpan data"
             ]);
         $kejuruan->save();
         return redirect()->route('kejuruan.index');
@@ -94,8 +94,8 @@ class KejuruanController extends Controller
         $kejuruan->nama_Kejuruan = $request->nama_kejuruan;
         $kejuruan->keterangan = $request->keterangan;
         Session::flash("flash_notification", [
-            "level"=>"success",
-            "message"=>"Berhasil menyimpan $kejuruan->name"
+            "level"=>"warning",
+            "message"=>"Berhasil Menyimpan Data"
             ]);
         $kejuruan->save();
         return redirect()->route('kejuruan.index');
@@ -113,7 +113,7 @@ class KejuruanController extends Controller
         $ids = $request->ids;
         tb_m_kejuruan::destroy($ids);
         Session::flash("flash_notification", [
-            "level"=>"success",
+            "level"=>"danger",
             "message"=>"Data Kejuruan berhasil dihapus"
             ]);
         return redirect()->route('kejuruan.index');
@@ -122,7 +122,7 @@ class KejuruanController extends Controller
     public function search(Request $request)
     {
         $cari = $request->get('search');
-        $kejuruan = tb_m_kejuruan::where('kd_kejuruan','LIKE','%'.$cari.'%')->paginate(10);
+        $kejuruan = tb_m_kejuruan::where('nama_kejuruan','LIKE','%'.$cari.'%')->paginate(10);
         return view('kejuruan.index',compact('kejuruan'));
     }
 }
